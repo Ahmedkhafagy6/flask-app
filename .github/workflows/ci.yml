@@ -5,10 +5,10 @@ on:
     branches: ['main']
 
 jobs:
-  build:                        # اسم الـ job — إنت بتخترعه
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: ______            # وصف الخطوة — كلام حر
-        uses: ______            # ← فراغ 1
-      - name: ______
-        run: ______             # ← فراغ 2
+      - name: checkout
+        uses: actions/checkout@v7
+      - name: build
+        run: docker build -t flask-app:v2 .
