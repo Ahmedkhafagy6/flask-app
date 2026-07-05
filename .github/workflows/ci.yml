@@ -1,0 +1,14 @@
+name: CI
+
+on:
+  push:
+    branches: ['main']
+
+jobs:
+  build:                        # اسم الـ job — إنت بتخترعه
+    runs-on: ubuntu-latest
+    steps:
+      - name: ______            # وصف الخطوة — كلام حر
+        uses: ______            # ← فراغ 1
+      - name: ______
+        run: ______             # ← فراغ 2
