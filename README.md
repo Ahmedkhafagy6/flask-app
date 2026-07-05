@@ -1,36 +1,25 @@
-Flask + venv + systemd
-DevOps training
+## Stage:Docker
 
-#Docker
-Installed and continerize the app
+**What was built:
+Containerized the app with Docker
 
-#Steps
-
-sudo apt update
-sudo apt install ca-certificates curl
-sudo install -m 0755 -d /etc/apt/keyrings
-sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
-sudo chmod a+r /etc/apt/keyrings/docker.asc
-sudo tee /etc/apt/sources.list.d/docker.sources <<EOF
-Types: deb
-URIs: https://download.docker.com/linux/ubuntu
-Suites: $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}")
-Components: stable
-Architectures: $(dpkg --print-architecture)
-Signed-By: /etc/apt/keyrings/docker.asc
-EOF
-
-sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-sudo systemctl status docker
-sudo apt update
-sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-sudo systemctl status docker
-sudo systemctl start docker
-sudo docker run hello-world
-
-sudo usermod -aG docker lap
+**How it works:
 
 docker build -t flask-app:v1 .
 
 docker run -d -p 5000:5000 --restart always flask-app:v1
 
+**Problems I hit:
+docker group permissions: added my user to the docker group
+port conflict with systemd: stopped and disabled the old systemd service that was still holding port 5000
+
+## Stage:CI
+
+**What was built:
+Added a CI pipeline with GitHub Actions
+
+##how it works:
+git add/commit/push
+ 
+**Problems I hit:
+YAML edits stayed in notes
