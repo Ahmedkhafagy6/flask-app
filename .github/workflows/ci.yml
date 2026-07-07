@@ -33,4 +33,4 @@ jobs:
     steps:
       - name: Deploy to cluster
         run: |
-          sudo k3s kubectl set image deployment/flask-deployment flask=ghcr.io/ahmedkhafagy6/flask-app:${{ github.sha }}
+          kubectl set image deployment/flask-deployment flask=ghcr.io/ahmedkhafagy6/flask-app:${{ github.sha }}
