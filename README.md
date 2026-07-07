@@ -22,3 +22,16 @@ on push → GitHub builds the image → pushes to GHCR → self-hosted runner on
 **Problems I hit:**
 YAML edits stayed in notes
 runner dies with terminal: automate the runner service to run the script in background 
+
+## Kubernetes
+
+**What was built:** 
+k3s cluster, Deployment with 2 replicas, NodePort Service
+
+**How it works:**
+the Deployment pulls the image from GHCR and keeps 2 replicas running; the NodePort Service load-balances traffic to them.
+
+**Problems I hit:**
+deleted a pod created with kubectl run — nothing brought it back. 
+Deleted a pod managed by a Deployment — a replacement was created automatically within seconds. 
+Learned the difference between imperative commands and declarative state.
