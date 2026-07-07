@@ -22,18 +22,15 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: build
-        run: docker build -t ghcr.io/ahmedkhafagy6/flask-app:latest .
+        run: docker build -t ghcr.io/ahmedkhafagy6/flask-app:${{ github.sha }} .
 
       - name: Push to GHCR
-        run: docker push ghcr.io/ahmedkhafagy6/flask-app:latest
+        run: docker push ghcr.io/ahmedkhafagy6/flask-app:${{ github.sha }}
 
   deploy:
     needs: build
     runs-on: self-hosted
     steps:
-      - name: Deploy container
+      - name: Deploy to cluster
         run: |
-          docker stop flask-app
-          docker rm flask-app
-          docker pull ghcr.io/ahmedkhafagy6/flask-app:latest
-          docker run -d -p 5000:5000 --restart always --name flask-app ghcr.io/ahmedkhafagy6/flask-app:latest
+          sudo k3s kubectl set image deployment/flask-deployment flask=ghcr.io/ahmedkhafagy6/flask-app:${{ github.sha }}
