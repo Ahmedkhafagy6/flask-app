@@ -38,3 +38,13 @@ Deleted a pod managed by a Deployment — a replacement was created automaticall
 Learned the difference between imperative commands and declarative state.
 latest tag never changes as text, so the cluster saw no difference and skipped the update — switched to unique commit SHA tags so every deploy is a real change
 sudo: a terminal is required — the runner has no terminal for password prompts; copied the kubeconfig to my user and set KUBECONFIG via env in the workflow, since background processes don't read .bashrc 
+
+## Stage:Terraform (IaC)
+**What was built:**
+Azure infra from code: VNet, subnet, public IP, NIC, NSG with SSH rule, Linux VM
+
+**How it works:**
+terraform plan compares the file with reality, apply builds the difference
+
+**Problems I hit:**
+the lab account had limited permissions (no subscription-level access) — got 403 on provider registration, fixed with resource_provider_registrations = "none" and worked inside the existing RG with a data block
