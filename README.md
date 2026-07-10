@@ -64,3 +64,15 @@ describes the desired state, not commands — safe to re-run any time (idempoten
 sudo asked for a password and automation has no terminal to type it — set passwordless sudo for the lab user
 pasted the full curl command into src — the unarchive module downloads by itself, src takes only the URL
 learned the difference between ok / changed / skipping in the play recap
+
+## Stage: Monitoring
+**What was built:**
+kube-prometheus-stack through Helm (Prometheus + Grafana + Alertmanager) inside the cluster
+
+**How it works:**
+exporters collect the metrics from the servers and pods → Prometheus stores them → Grafana draws them live
+
+**Problems I hit / learned:**
+Grafana was ClusterIP (reachable only inside the cluster) → patched it to NodePort for permanent browser access
+killed a pod and watched the graph document it — one line stopped, a new line with a new name started from zero
+first time using Helm — the apt of Kubernetes: one chart installed 6 connected pods
