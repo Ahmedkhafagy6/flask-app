@@ -48,3 +48,7 @@ terraform plan compares the file with reality, apply builds the difference
 
 **Problems I hit:**
 the lab account had limited permissions (no subscription-level access) — got 403 on provider registration, fixed with resource_provider_registrations = "none" and worked inside the existing RG with a data block
+SSH to the new VM hung — Azure blocks all inbound by default and no NSG existed → added NSG with port 22 rule + subnet association
+wrote source_port = 22 instead of destination_port — the rule would pass silently but block me, because clients connect FROM random ports
+drift test (Docker provider): deleted the container by hand → terraform plan detected it and offered to recreate it
+the playground RG isn't mine → read it with a data block instead of resource — resource = I own it, data = I only read it
