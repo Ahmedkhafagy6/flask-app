@@ -31,7 +31,7 @@ k3s cluster, Deployment with 2 replicas, NodePort Service
 
 **How it works:**
 the Deployment pulls the image from GHCR and keeps 2 replicas running; the NodePort Service load-balances traffic to them.
-  
+
 **Problems I hit:**
 deleted a pod created with kubectl run — nothing brought it back. 
 Deleted a pod managed by a Deployment — a replacement was created automatically within seconds. 
@@ -52,3 +52,15 @@ SSH to the new VM hung — Azure blocks all inbound by default and no NSG existe
 wrote source_port = 22 instead of destination_port — the rule would pass silently but block me, because clients connect FROM random ports
 drift test (Docker provider): deleted the container by hand → terraform plan detected it and offered to recreate it
 the playground RG isn't mine → read it with a data block instead of resource — resource = I own it, data = I only read it
+
+## Stage: Ansible
+**What was built:**
+playbook to prepare the servers: Docker + k3s + GitHub runner
+
+**How it works:**
+describes the desired state, not commands — safe to re-run any time (idempotent via creates)
+
+**Problems I hit:**
+sudo asked for a password and automation has no terminal to type it — set passwordless sudo for the lab user
+pasted the full curl command into src — the unarchive module downloads by itself, src takes only the URL
+learned the difference between ok / changed / skipping in the play recap
